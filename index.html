@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DRILLS AND EXERCISES</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"> 
+  <link rel="stylesheet"href="" class="">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #e8c3fd 25%, #c4a2fc 75%);
+    }
+
+    .navbar-end {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .navbar-item {
+      margin-right: 20px;
+    }
+
+    .quiz-container, .login-container {
+      backdrop-filter: blur(10px) saturate(200%);
+      -webkit-backdrop-filter: blur(10px) saturate(200%);
+      background-color: rgba(255, 255, 255, 0.45);
+      border-radius: 12px;
+      border: 1px solid rgba(209, 213, 219, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .quiz-header {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .title.is-2 {
+      text-align: right;
+      padding-right: 20px;
+    }
+
+    .title.is-1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .question {
+      display: none;
+    }
+
+    .question.active {
+      display: block;
+    }
+
+    .timer {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    button {
+      background-color: #6a5acd;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #483d8b;
+    }
+
+    .result {
+      display: none;
+    }
+
+    .result.hidden {
+      display: none;
+    }
+
+    .result.active {
+      display: block;
+    }
+
+    .hover-background {
+      transition: background-color 0.3s ease;
+    }
+
+    .hover-background:hover {
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .login-container {
+      margin-top: 50px;
+    }
+
+    .login-form {
+      text-align: left;
+      margin: 0 auto;
+      max-width: 300px;
+    }
+
+    .login-form label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .login-title {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .login-button-container {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+ 
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#">
+        <strong>Quadratic Equations</strong>
+      </a>
+    </div>
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="index.html">
+          Drills & Exercises
+        </a>
+      
+      </div>
+    </div>
+  </nav>
+
+  <header class="header">
+    <u><h1 class="title is-1 has-text-light">Quiz</h1></u>
+  </header>
+
+  <section class="hover-background">
+    <div class="login-container">
+      <div class="login-title">Login</div>
+      <form class="login-form" onsubmit="return login(event)">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <div class="login-button-container">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div class="quiz-container" style="display: none;">
+      <div class="quiz-header">
+        <div style="text-align: right;"></div>
+      </div>
+      <div class="title is-2">DRILLS AND EXERCISES</div>
+      <p> Directions: Find the roots of the given quadratic equation. Choose the letter of the correct answer.</p><br>
+      <div class="quiz-content">
+        <div class="quiz-container">
+          <div id="quiz">
+            <div class="question active" id="question1">
+              <div class="timer" id="timer1">Time remaining: 3:00</div>
+              <p>1. x² + 10x + 25 = 0</p>
+              <ul>
+                <li><button onclick="submitAnswer(1, 'a')">a. x = 10,5</button></li>
+                <li><button onclick="submitAnswer(1, 'b')">b. x = 5</button></li>
+                <li><button onclick="submitAnswer(1, 'c')">c. x = -5</button></li>
+                <li><button onclick="submitAnswer(1, 'd')">d. x = 20,5</button></li>
+              </ul>
+            </div>
+            <div class="question" id="question2">
+              <div class="timer" id="timer2">Time remaining: 3:00</div>
+              <p>2. x² + 7x + 12 = 0</p>
+              <ul>
+                <li><button onclick="submitAnswer(2, 'a')">a. x = 7,11</button></li>
+                <li><button onclick="submitAnswer(2, 'b')">b. x = 12,7</button></li>
+                <li><button onclick="submitAnswer(2, 'c')">c. x = 4,3</button></li>
+                <li><button onclick="submitAnswer(2, 'd')">d. x = -4, -3</button></li>
+              </ul>
+            </div>
+            <div class="question" id="question3">
+              <div class="timer" id="timer3">Time remaining: 3:00</div>
+              <p>3. x² - 9x + 20 = 0</p>
+              <ul>
+                <li><button onclick="submitAnswer(3, 'a')">a. x = -4,5</button></li>
+                <li><button onclick="submitAnswer(3, 'b')">b. x = 4,5</button></li>
+                <li><button onclick="submitAnswer(3, 'c')">c. x = -5,4</button></li>
+                <li><button onclick="submitAnswer(3, 'd')">d. x = 9,12</button></li>
+              </ul>
+            </div>
+            <div class="question" id="question4">
+              <div class="timer" id="timer4">Time remaining: 3:00</div>
+              <p>4. x² + 7x - 8 = 0</p>
+              <ul>
+                <li><button onclick="submitAnswer(4, 'a')">a. x = -8,1</button></li>
+                <li><button onclick="submitAnswer(4, 'b')">b. x = 8,1</button></li>
+                <li><button onclick="submitAnswer(4, 'c')">c. x = 7,1</button></li>
+                <li><button onclick="submitAnswer(4, 'd')">d. x = -7,1</button></li>
+              </ul>
+            </div>
+            <div class="question" id="question5">
+              <div class="timer" id="timer5">Time remaining: 3:00</div>
+              <p>5. 2x² + 2x - 12 = 0</p>
+              <ul>
+                <li><button onclick="submitAnswer(5, 'a')">a. x = -3,2</button></li>
+                <li><button onclick="submitAnswer(5, 'b')">b. x = 4,3</button></li>
+                <li><button onclick="submitAnswer(5, 'c')">c. x = -4,-3</button></li>
+                <li><button onclick="submitAnswer(5, 'd')">d. x = 4,-3</button></li>
+              </ul>
+            </div>
+          </div>
+          <div id="result" class="result hidden">
+            <h2>Quiz Completed</h2>
+            <p id="score">Your score is: 0</p>
+            <p id="solution"></p>
+          </div>
+        </div>
+      </div>
+      <button id="pauseButton" onclick="pauseQuiz()">Pause</button>
+      <button id="playButton" onclick="playQuiz()" disabled>Play</button>
+    </div>
+  </section>
+
+  <section class="section section-with-image">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <div class="image-with-text">
+            <img src="https://lh6.googleusercontent.com/9SvwCRnnOZiLbemI5esvNOZ6fshuzUccjsUJTBT_GpSZDpof_wCduTj-NENXX5Y21QzGsTKwVxM19CZ2I3DDVV3Pr5-cS3rV8l4fgsGP5Gobu8CPI11t6y6hQHZQUle39A=w1280" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <!-- Other content here -->
+    </div>
+  </section>
+
+  <script>
+    let currentQuestion = 0;
+    const questions = document.querySelectorAll('.question');
+    const timeLimit = 180; // 3 minutes in seconds
+    let score = 0;
+    const correctAnswers = ['c', 'd', 'b', 'c', 'a']; 
+    // Answers for the questions
+
+    let timerInterval;
+    let timeRemaining;
+    let isPaused = false;
+    let currentTimerElement;
+
+    function startQuiz() {
+        showQuestion(currentQuestion);
+    }
+
+    function showQuestion(index) {
+        if (index > 0) {
+            questions[index - 1].classList.remove('active');
+        }
+        if (index < questions.length) {
+            questions[index].classList.add('active');
+            startTimer(index);
+        } else {
+            showResult();
+        }
+    }
+
+    function startTimer(index) {
+        timeRemaining = timeLimit;
+        currentTimerElement = document.getElementById(`timer${index + 1}`);
+
+        timerInterval = setInterval(() => {
+            if (!isPaused) {
+                updateTimerDisplay();
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    currentQuestion++;
+                    showQuestion(currentQuestion);
+                }
+
+                timeRemaining--;
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        currentTimerElement.textContent = `Time remaining: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        if (timeRemaining % 2 === 0) {
+            currentTimerElement.style.color = 'red';
+        } else {
+            currentTimerElement.style.color = 'blue';
+        }
+    }
+
+    function pauseQuiz() {
+        isPaused = true;
+        document.getElementById('pauseButton').disabled = true;
+        document.getElementById('playButton').disabled = false;
+    }
+
+    function playQuiz() {
+        isPaused = false;
+        document.getElementById('pauseButton').disabled = false;
+        document.getElementById('playButton').disabled = true;
+    }
+
+    function submitAnswer(questionNumber, selectedOption) {
+        if (correctAnswers[questionNumber - 1] === selectedOption) {
+            score++;
+        }
+        clearInterval(timerInterval);
+        currentQuestion++;
+        showQuestion(currentQuestion);
+    }
+
+    function showResult() {
+        document.getElementById('quiz').style.display = 'none';
+        document.getElementById('result').classList.remove('hidden');
+        document.getElementById('result').classList.add('active');
+        document.getElementById('score').textContent = `Your score is: ${score}`;
+
+        const solutions = [
+            '1. x² + 10x + 25 = 0 Solution: (x + 5)(x + 5) = 0 => x = -5',
+            '2. x² + 7x + 12 = 0 Solution: (x + 3)(x + 4) = 0 => x = -3, -4',
+            '3. x² - 9x + 20 = 0 Solution: (x - 4)(x - 5) = 0 => x = 4, 5',
+            '4. x² + 7x - 8 = 0 Solution: (x - 1)(x + 8) = 0 => x = 1, -8',
+            '5. 2x² + 2x - 12 = 0 Solution: 2(x + 3)(x - 2) = 0 => x = -3, 2'
+        ];
+
+        document.getElementById('solution').innerHTML = solutions.join('<br>');
+    }
+
+    function login(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        
+        if (username === 'user' && password === 'pass') { 
+            document.querySelector('.login-container').style.display = 'none';
+            document.querySelector('.quiz-container').style.display = 'block';
+            startQuiz();
+        } else {
+            alert('Invalid username or password!');
+        }
+    }
+  </script>
+  <footer class="footer has-text-centered">
+    <div class="content">
+      <p>Monsalud,Mark Jade</p>
+      <p>Ramos,Flexie</p>
+      <p>Rin,Rexsian</p>
+      <p>Dago-oc,Jeramy</p>
+      <p>Ruta,Renzo</p>
+      <p>&copy; 2024 Quadratic Equations. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
